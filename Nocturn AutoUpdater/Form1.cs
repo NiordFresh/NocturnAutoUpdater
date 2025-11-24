@@ -21,6 +21,9 @@ namespace Nocturn_AutoUpdater
             InitializeComponent();
             progressBar1.Style = ProgressBarStyle.Marquee;
             progressBar1.MarqueeAnimationSpeed = 30;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
 
             CheckForUpdates();
         }
