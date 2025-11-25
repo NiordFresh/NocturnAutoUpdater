@@ -34,7 +34,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 25);
+            this.progressBar1.Location = new System.Drawing.Point(12, 27);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(260, 23);
             this.progressBar1.TabIndex = 0;
@@ -42,11 +42,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 6);
+            this.label1.Location = new System.Drawing.Point(9, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 13);
+            this.label1.Size = new System.Drawing.Size(117, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Checking for updates:";
+            this.label1.Text = "Checking for updates...";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Nocturn
             // 
@@ -61,7 +62,6 @@
             this.Name = "Nocturn";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "  ";
             this.Load += new System.EventHandler(this.Nocturn_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

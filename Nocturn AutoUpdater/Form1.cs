@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -21,11 +22,40 @@ namespace Nocturn_AutoUpdater
             InitializeComponent();
             progressBar1.Style = ProgressBarStyle.Marquee;
             progressBar1.MarqueeAnimationSpeed = 30;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                          ControlStyles.UserPaint |
+                          ControlStyles.DoubleBuffer, true);
             this.MaximizeBox = false;
-
+            this.StartPosition = FormStartPosition.Manual;
+            this.Paint += Nocturn_Paint;
+            this.Load += Nocturn_Load;
+            this.Shown += Nocturn_Shown;
 
             CheckForUpdates();
+        }
+
+        private void Nocturn_Paint(object sender, PaintEventArgs e)
+        {
+            using (Pen pen = new Pen(Color.Black, 1))
+            {
+                Rectangle rect = new Rectangle(0, 0, this.ClientSize.Width - 1, this.ClientSize.Height - 1);
+                e.Graphics.DrawRectangle(pen, rect);
+            }
+        }
+
+        private void CenterFormWithTaskbar()
+        {
+            Rectangle workingArea = Screen.PrimaryScreen.WorkingArea;
+            this.Location = new Point(
+                workingArea.Left + (workingArea.Width - this.Width) / 2,
+                workingArea.Top + (workingArea.Height - this.Height) / 2
+            );
+        }
+
+        private void Nocturn_Shown(object sender, EventArgs e)
+        {
+            CenterFormWithTaskbar();
         }
 
         private async void CheckForUpdates()
@@ -105,7 +135,7 @@ namespace Nocturn_AutoUpdater
             }
             catch (Exception ex)
             {
-                label1.Text = "Error occurred";
+                label1.Text = "Error occurred!";
                 progressBar1.Style = ProgressBarStyle.Blocks;
 
                 await Task.Delay(2500);
@@ -171,6 +201,11 @@ namespace Nocturn_AutoUpdater
         }
 
         private void Nocturn_Load(object sender, EventArgs e)
+        {
+            CenterFormWithTaskbar();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
